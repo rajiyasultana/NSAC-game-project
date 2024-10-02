@@ -7,7 +7,7 @@ public class Delay : MonoBehaviour
 {
     public GameObject Massage;
     public float delayTime = 5f;
-    public UnityEvent onTimePassed;
+    //public UnityEvent onTimePassed;
     void Start()
     {
         StartCoroutine(SpawnDelay());
@@ -19,6 +19,6 @@ public class Delay : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
 
         Massage.SetActive(true);
-        onTimePassed.Invoke();
+        //onTimePassed.Invoke();
     }
 }
