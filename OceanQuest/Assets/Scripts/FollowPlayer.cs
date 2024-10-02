@@ -2,24 +2,25 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [SerializeField] private Transform followPlayer;
-    [SerializeField] public float rotationSpeed = 10f;
-    [SerializeField] private float bottomClamp = -40f;
-    [SerializeField] private float topClamp = 70f;
 
-    private float cinemachineTargatePitch;
-    private float cinemachineTargateYaw;
+    private Vector3 _offset;
+    [SerializeField] private Transform target;
+    [SerializeField] private float smoothTime;
+    private Vector3 _currentVelocity = Vector3.zero;
 
-    private void CameraLogic()
+    
+
+    
+
+    private void Awake()
     {
-        float mouseX = GetMouseInput("Mouse X");
-        float mouseY = GetMouseInput("Mouse Y");
+        _offset = transform.position - target.position;
     }
 
-
-
-    private float GetMouseInput(string axis)
+    private void LateUpdate()
     {
-        return Input.GetAxis(axis) * rotationSpeed * Time.deltaTime;
+        Vector3 targetPosition = target.position + _offset;
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _currentVelocity, smoothTime);
     }
+
 }
